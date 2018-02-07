@@ -6,6 +6,20 @@ const styles = StyleSheet.create({
     justifyContent : 'center',
     alignItems : 'center'
   },
+  textInput : {
+    width : '80%'
+  },
+  loginButton : {
+    marginTop : 5,
+    width : '80%',
+    height : 35,
+    backgroundColor : 'blue',
+    justifyContent : 'center',
+    alignItems : 'center',
+  },
+  whiteText : {
+    color : 'white'
+  },
 });
 
 export default styles;
