@@ -6,6 +6,7 @@ import {
 	TextInput
 } from 'react-native';
 import styles from './style';
+import firebase from 'react-native-firebase';
 
 export default class SignUp extends Component {
 
@@ -14,12 +15,21 @@ export default class SignUp extends Component {
 		this.state ={
 			email : '',
 			password : '',
-			confirmPass : ''
 		}
 	}
 
 	onSignUp = () => {
 		console.log("SIGNUP::");
+		if(this.state.email && this.state.password){
+			firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.email,this.state.password)
+				.then(user => {
+					console.log("USER:::",user);
+					this.props.navigation.navigate('Login');
+				})
+				.catch(err => {
+					console.log("ERR::",err)
+				})
+		}
 	}
 
 	render() {
@@ -28,24 +38,15 @@ export default class SignUp extends Component {
 				placeholder='Email'
 				value={this.state.email}
 				style={styles.textInput}
-				onChange={e => {
+				onChangeText={e => {
 					this.setState({ email: e })
 				}}/>
 			<TextInput
 				placeholder='Password'
 				value={this.state.password}
 				style={styles.textInput}
-				onChange={e => {
+				onChangeText={e => {
 					this.setState({ password: e })
-				}}
-				secureTextEntry={ true }
-			/>
-			<TextInput
-				placeholder='Password'
-				value={this.state.confirmPass}
-				style={styles.textInput}
-				onChange={e => {
-					this.setState({ confirmPass: e })
 				}}
 				secureTextEntry={ true }
 			/>

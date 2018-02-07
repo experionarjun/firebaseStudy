@@ -5,11 +5,33 @@
  */
 
 import React, { Component } from 'react';
-import Router from './route';
+import { PublicStack,PrivateStack} from './route';
+import firebase from 'react-native-firebase';
 
 export default class App extends Component{
+  state = {
+    loading : true,
+    user : null
+  }
+
+  componentDidMount(){
+    this.unsubscriber = firebase.auth().onAuthStateChanged((user) => {
+      this.setState({
+        user,
+        loading : false
+       },()=>{
+        console.log("STATE::",this.state)
+      });
+    });
+  }
+
+  componentWillUnmount(){
+    this.unsubscriber();
+  }
 
   render(){
-    return <Router/>;
+    if(this.state.loading) return null;
+
+    return this.state.user ? <PrivateStack/> : <PublicStack/>
   }
 }

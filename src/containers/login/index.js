@@ -1,19 +1,31 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput, TouchableHighlight} from 'react-native';
 import styles from './style';
+import firebase from 'react-native-firebase';
 
 export default class Login extends Component {
   constructor() {
     super();
+    this.unsubscriber = null;
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      user : null
     }
   }
 
 	onLogin = () => {
-		console.log("onLogin::::");
-		this.props.navigation.navigate('Home');
+    console.log("onLogin::::",this.state);
+		// this.props.navigation.navigate('Home');
+    if(this.state.email && this.state.password){
+      firebase.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.email,this.state.password)
+      .then(user => {
+        console.log("USER:::",user);
+      })
+      .catch(err =>{
+        console.log("ERR:::",err);
+      })
+    }
 	}
 
   render() {
@@ -22,15 +34,15 @@ export default class Login extends Component {
 				placeholder='Email'
 				value={this.state.email}
 				style={styles.textInput}
-				onChange={e => {
-          this.setState({ email: e })
+				onChangeText={text => {
+          this.setState({ email: text })
         }}/>
       <TextInput
 				placeholder='Password'
 				value={this.state.password}
 				style={styles.textInput}
-				onChange={e => {
-          this.setState({ password: e })
+				onChangeText={text => {
+          this.setState({ password: text })
         }}
 				secureTextEntry={ true }
 			/>
