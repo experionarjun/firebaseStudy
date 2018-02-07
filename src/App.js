@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import { PublicStack,PrivateStack} from './route';
 import firebase from 'react-native-firebase';
+import { AsyncStorage } from 'react-native';
 
 export default class App extends Component{
   state = {
@@ -20,7 +21,10 @@ export default class App extends Component{
         user,
         loading : false
        },()=>{
-        console.log("STATE::",this.state)
+         // AsyncStorage.clear();
+         if(this.state.user){
+           AsyncStorage.setItem('uid',this.state.user._user.uid);
+         }
       });
     });
   }

@@ -32,6 +32,7 @@ export default class Login extends Component {
     return (<View style={styles.container}>
       <TextInput
 				placeholder='Email'
+        keyboardType='email-address'
 				value={this.state.email}
 				style={styles.textInput}
 				onChangeText={text => {

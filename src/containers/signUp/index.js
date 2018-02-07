@@ -19,12 +19,22 @@ export default class SignUp extends Component {
 	}
 
 	onSignUp = () => {
-		console.log("SIGNUP::");
 		if(this.state.email && this.state.password){
 			firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.email,this.state.password)
 				.then(user => {
 					console.log("USER:::",user);
-					this.props.navigation.navigate('Login');
+					firebase.database().ref().update({
+						[user.user._user.uid] : {
+							user_data : {
+								first_name : '',
+								last_name : '',
+								address : '',
+								phone_number : ''
+							},
+							transactions : null
+						},
+
+					})
 				})
 				.catch(err => {
 					console.log("ERR::",err)
@@ -36,6 +46,7 @@ export default class SignUp extends Component {
 		return (<View style={styles.container}>
 			<TextInput
 				placeholder='Email'
+				keyboardType='email-address'
 				value={this.state.email}
 				style={styles.textInput}
 				onChangeText={e => {

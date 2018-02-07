@@ -32,4 +32,4 @@ const PrivateStack = TabNavigator({
 //   headerMode : 'none'
 // })
 
-export {PublicStack,PrivateStack};
+export { PublicStack,PrivateStack };
