@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import {View, Text,TouchableHighlight} from 'react-native';
-import styles from './style';
+import { mainStyles } from '../../theme';
 import firebase from 'react-native-firebase';
 
 export default class Settings extends Component {
+
+  componentDidMount(){
+    console.log("PROF",firebase.auth().currentUser)
+  }
 
   logout = () => {
     firebase.auth().signOut()
@@ -17,9 +21,9 @@ export default class Settings extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <TouchableHighlight style={ styles.loginButton } onPress={ this.logout }>
-          <Text style={ styles.whiteText }>Logout</Text>
+      <View style={mainStyles.container}>
+        <TouchableHighlight style={ mainStyles.primaryButton } onPress={ this.logout }>
+          <Text style={ mainStyles.whiteText }>Logout</Text>
         </TouchableHighlight>
       </View>
     );

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, TextInput, TouchableHighlight} from 'react-native';
-import styles from './style';
+import { mainStyles } from '../../theme';
 import firebase from 'react-native-firebase';
 
 export default class Login extends Component {
@@ -29,19 +29,19 @@ export default class Login extends Component {
 	}
 
   render() {
-    return (<View style={styles.container}>
+    return (<View style={mainStyles.centeredContainer}>
       <TextInput
 				placeholder='Email'
         keyboardType='email-address'
 				value={this.state.email}
-				style={styles.textInput}
+				style={mainStyles.textInput}
 				onChangeText={text => {
           this.setState({ email: text })
         }}/>
       <TextInput
 				placeholder='Password'
 				value={this.state.password}
-				style={styles.textInput}
+				style={mainStyles.textInput}
 				onChangeText={text => {
           this.setState({ password: text })
         }}
@@ -49,14 +49,14 @@ export default class Login extends Component {
 			/>
 			<TouchableHighlight
 				underlayColor="skyblue"
-				style={styles.loginButton}
+				style={mainStyles.primaryButton}
 				onPress={this.onLogin}>
-				<Text style={ styles.whiteText }>Login</Text>
+				<Text style={ mainStyles.whiteText }>Login</Text>
 			</TouchableHighlight>
 			<Text>or</Text>
 			<TouchableHighlight
 				underlayColor="white"
-				style={styles.signUpButton}
+				style={mainStyles.secondaryButton}
 				onPress={()=>{this.props.navigation.navigate('SignUp')}}>
 				<Text>Sign Up</Text>
 			</TouchableHighlight>

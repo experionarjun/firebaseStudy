@@ -5,7 +5,7 @@ import {
 	TouchableHighlight,
 	TextInput
 } from 'react-native';
-import styles from './style';
+import { mainStyles } from '../../theme';
 import firebase from 'react-native-firebase';
 
 export default class SignUp extends Component {
@@ -21,21 +21,7 @@ export default class SignUp extends Component {
 	onSignUp = () => {
 		if(this.state.email && this.state.password){
 			firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(this.state.email,this.state.password)
-				.then(user => {
-					console.log("USER:::",user);
-					firebase.database().ref().update({
-						[user.user._user.uid] : {
-							user_data : {
-								first_name : '',
-								last_name : '',
-								address : '',
-								phone_number : ''
-							},
-							transactions : null
-						},
-
-					})
-				})
+				.then(user => {	})
 				.catch(err => {
 					console.log("ERR::",err)
 				})
@@ -43,19 +29,19 @@ export default class SignUp extends Component {
 	}
 
 	render() {
-		return (<View style={styles.container}>
+		return (<View style={mainStyles.centeredContainer}>
 			<TextInput
 				placeholder='Email'
 				keyboardType='email-address'
 				value={this.state.email}
-				style={styles.textInput}
+				style={mainStyles.textInput}
 				onChangeText={e => {
 					this.setState({ email: e })
 				}}/>
 			<TextInput
 				placeholder='Password'
 				value={this.state.password}
-				style={styles.textInput}
+				style={mainStyles.textInput}
 				onChangeText={e => {
 					this.setState({ password: e })
 				}}
@@ -63,9 +49,9 @@ export default class SignUp extends Component {
 			/>
 			<TouchableHighlight
 				underlayColor="skyblue"
-				style={styles.loginButton}
+				style={mainStyles.primaryButton}
 				onPress={this.onSignUp}>
-				<Text style={ styles.whiteText }>Sign Up</Text>
+				<Text style={ mainStyles.whiteText }>Sign Up</Text>
 			</TouchableHighlight>
 		</View>);
 	}
